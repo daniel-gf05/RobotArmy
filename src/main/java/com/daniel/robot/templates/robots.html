@@ -1,0 +1,5 @@
+<ul>
+  <li th:each="robot : ${robots}">
+    <span th:text="${robot.nombre}">Robot</span> - <span th:text="${robot.estado}">Estado</span>
+  </li>
+</ul>
