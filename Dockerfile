@@ -1,18 +1,26 @@
-# Etapa 1: Compilación (opcional si ya tienes el .jar)
-# FROM maven:3.9.6-eclipse-temurin-17 AS build
-# WORKDIR /app
-# COPY . .
-# RUN mvn clean package -DskipTests
+# Etapa de construcción
+FROM maven:3.9.6-eclipse-temurin-21 AS build
 
-# Etapa 2: Imagen final
-FROM eclipse-temurin:17-jdk-alpine
+# Establece directorio de trabajo
 WORKDIR /app
 
-# Copia el archivo JAR al contenedor (ajusta el nombre si es distinto)
-COPY target/robot-army-0.0.1-SNAPSHOT.jar app.jar
+# Copia el contenido del proyecto
+COPY . .
 
-# Expone el puerto por defecto de Spring Boot
+# Empaqueta el proyecto sin ejecutar tests
+RUN mvn clean package -DskipTests
+
+# Etapa de ejecución
+FROM eclipse-temurin:21-jdk
+
+# Establece directorio de trabajo
+WORKDIR /app
+
+# Expone el puerto 8080
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
+# Copia el JAR generado
+COPY --from=build /app/target/*.jar app.jar
+
+# Establece el comando para ejecutar el JAR
 ENTRYPOINT ["java", "-jar", "app.jar"]
