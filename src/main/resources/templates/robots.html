@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Robots</title>
+</head>
+<body>
+    <h1>Robots</h1>
+    <ul>
+        <li th:each="robot : ${robots}">
+            <strong th:text="${robot.nombre}"></strong> - 
+            Modelo: <span th:text="${robot.modelo}"></span>, 
+            Nivel: <span th:text="${robot.nivel}"></span>, 
+            Estado: <span th:text="${robot.estado}"></span>
+        </li>
+    </ul>
+</body>
+</html>

@@ -34,6 +34,10 @@ public class MisionController {
 
     @PatchMapping("/{id}/asignar-robot")
     public Mision asignarRobot(@PathVariable String id, @RequestBody String robotId) {
+        // Elimina las comillas adicionales si existen
+        robotId = robotId.replace("\"", "");
         return misionService.asignarRobot(id, robotId);
+
     }
+
 }

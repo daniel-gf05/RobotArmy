@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Misiones</title>
+</head>
+<body>
+    <h1>Misiones</h1>
+    
+    <div th:if="${misiones == null or misiones.empty}">
+        <p>No hay misiones disponibles.</p>
+    </div>
+    
+    <ul th:if="${misiones != null and !misiones.empty}">
+        <li th:each="mision : ${misiones}">
+            <strong th:text="${mision.nombre ?: 'Sin nombre'}"></strong><br/>
+            Descripción: <span th:text="${mision.descripcion ?: 'Sin descripción'}"></span><br/>
+            Dificultad: <span th:text="${mision.dificultad ?: 'No especificada'}"></span><br/>
+            Robots asignados:
+            <ul th:if="${mision.robotsParticipantes != null and !mision.robotsParticipantes.empty}">
+                <li th:each="robotId : ${mision.robotsParticipantes}" th:text="${robotId}"></li>
+            </ul>
+            <p th:if="${mision.robotsParticipantes == null or mision.robotsParticipantes.empty}">No hay robots asignados</p>
+        </li>
+    </ul>
+    
+    <!-- Añade esto para depuración -->
+    <div style="margin-top: 50px; padding: 10px; background-color: #f5f5f5;">
+        <h3>Información de depuración:</h3>
+        <p th:text="'Número de misiones: ' + ${misiones != null ? misiones.size() : 'null'}"></p>
+    </div>
+</body>
+</html>
