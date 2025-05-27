@@ -1,17 +1,85 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+  <head>
+    <meta charset="UTF-8" />
     <title>Lista de Robots</title>
-</head>
-<body>
-    <h1>Robots</h1>
-    <ul>
-        <li th:each="robot : ${robots}">
-            <strong th:text="${robot.nombre}"></strong> - 
-            Modelo: <span th:text="${robot.modelo}"></span>, 
-            Nivel: <span th:text="${robot.nivel}"></span>, 
-            Estado: <span th:text="${robot.estado}"></span>
-        </li>
-    </ul>
-</body>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(to right, #1f1c2c, #928dab);
+        margin: 0;
+        padding: 0;
+        color: #fff;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 2rem 0;
+        font-size: 2.5rem;
+      }
+
+      .robot-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+      }
+
+      .robot-card {
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 1.5rem;
+        width: 300px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .robot-card:hover {
+        transform: translateY(-5px);
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+
+      .robot-card h2 {
+        margin-top: 0;
+        font-size: 1.5rem;
+        color: #ffda79;
+      }
+
+      .robot-detail {
+        margin: 0.5rem 0;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+
+      footer {
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        opacity: 0.6;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🤖 Robots en el Sistema</h1>
+
+    <div class="robot-container">
+      <div class="robot-card" th:each="robot : ${robots}">
+        <h2 th:text="${robot.nombre}">Nombre del Robot</h2>
+        <p class="robot-detail">
+          <strong>Modelo:</strong> <span th:text="${robot.modelo}">Modelo</span>
+        </p>
+        <p class="robot-detail">
+          <strong>Nivel:</strong> <span th:text="${robot.nivel}">1</span>
+        </p>
+        <p class="robot-detail">
+          <strong>Estado:</strong> <span th:text="${robot.estado}">Activo</span>
+        </p>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2025 Robot System | Powered by Spring Boot + Thymeleaf
+    </footer>
+  </body>
 </html>
